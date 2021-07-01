@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from .forms import TournamentForm
+from .models import Tournament
 
 
 def home(request):
@@ -66,9 +67,18 @@ def create_tournament(request):
             return redirect('home')
 
 
+def list_all_tournaments(request):
+    tournaments = Tournament.objects
+    context = {"objects": tournaments}
+
+    return render(request, 'tournament/tournamentlist.html', context)
 
 
-    if form.is_valid():
-        form.save()
+def list_user_tournaments(request):
+    if request.user.is_authenticated:
+        tournaments = Tournament.objects.filter(createdBy=request.user.id)
+        context = {"objects": tournaments}
 
-    context['form'] = form
+        return render(request, 'tournament/usertournamentlist.html', context)
+    else:
+        return redirect('home')
