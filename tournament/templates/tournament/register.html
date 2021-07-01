@@ -1,0 +1,27 @@
+{% extends "tournament/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-md-center">
+        <div class="card text-center col-md-auto">
+            <div class="card-header">
+                Registration
+            </div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    {{ form|crispy}}
+
+                    <input type="submit" class="btn btn-warning" value="Register">
+                </form>
+            </div>
+            <div class="card-footer text-muted">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
