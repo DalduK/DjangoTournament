@@ -1,0 +1,22 @@
+
+{% extends "tournament/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ formt|crispy }}
+        {{ formp|crispy }}
+        <input type="submit" class="btn btn-warning" value="Register">
+    </form>
+    </div>
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+    <div class="product-device shadow-sm d-none d-md-block"></div>
+    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+  </div>
+</div>
+
+{% endblock content %}

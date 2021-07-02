@@ -2,7 +2,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from .forms import TournamentForm
+from .forms import TournamentForm, TournamentConfirm, PlayerForm
+from django.forms import formset_factory
 from .models import Tournament
 
 
@@ -56,7 +57,6 @@ def create_tournament(request):
         form = TournamentForm(request.user, request.POST or None, request.FILES or None)
         if form.is_valid():
             name = form.cleaned_data['name']
-            closeDate = form.cleaned_data['closeDate']
             size = form.cleaned_data['size']
             saving = form.save(commit=False)
             user = request.user
@@ -64,8 +64,38 @@ def create_tournament(request):
             saving.createdBy = user
             saving.save()
             messages.success(request, 'New tournament created')
-            return redirect('home')
+            return redirect('/create/'+ str(saving.id) + '/')
 
+
+def confirm_tournament(request, id):
+    tournament = Tournament.objects.filter(id=id)
+    size = tournament.values('size')[0]['size']
+    PlayerFormSet = formset_factory(
+        PlayerForm,
+        extra=size,
+        max_num=size,
+        min_num=size,
+    )
+    if request.method == 'GET':
+        formt = TournamentConfirm()
+        context = {'formt':formt,'formp': PlayerFormSet}
+        return render(request, 'tournament/confirmcreate.html', context)
+    if request.method == 'POST':
+        formt = TournamentConfirm(request.POST or None, request.FILES or None)
+        formset = PlayerFormSet(request.POST, request.FILES)
+        if formt.is_valid():
+            print('dalej byczku')
+            closeDate = formt.cleaned_data['closeDate']
+            tournament.update(closeDate=closeDate)
+            if formset.is_valid():
+                for form in formset.forms:
+                    saving = form.save(commit=False)
+                    saving.tournament = tournament[0]
+                    saving.save()
+                return redirect('home')
+            else:
+                print(formset.errors)
+                print(formset.non_form_errors())
 
 def list_all_tournaments(request):
     tournaments = Tournament.objects
