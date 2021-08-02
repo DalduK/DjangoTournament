@@ -1,15 +1,34 @@
-
 {% extends "tournament/base.html" %}
 
 {% block content %}
 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+    {% if user.is_authenticated %}
     <div class="col-md-5 p-lg-5 mx-auto my-5">
-      <h1 class="display-4 fw-normal">Tournament Bracket</h1>
-      <p class="lead fw-normal">Make tournament quickly that will upddate automaticaly after match</p>
-      <a class="btn btn-outline-secondary" href="#">Create Tournament Bracket</a>
+        <h1 class="display-4 fw-normal">Tournament Bracket</h1>
+        <p class="lead fw-normal">Make tournament quickly that will upddate automaticaly after match</p>
+        <a class="btn btn-outline-secondary" href="create">Create Tournament Bracket</a>
     </div>
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <h1 class="display-4 fw-normal">Check all tournaments</h1>
+        <p class="lead fw-normal">Check live, previous and next tournaments. </p>
+        <a class="btn btn-outline-secondary" href="list">Check Tournaments</a>
+    </div>
+    {% else %}
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <h1 class="display-4 fw-normal">Sign-up or Log-in</h1>
+        <p class="lead fw-normal">Be a part of great platform !</p>
+        <a href="{% url 'login' %}" type="button" class="btn btn-outline-light me-2">Login</a>
+        <a href="{% url 'register' %}" type="button" class="btn btn-warning">Sign-up</a>
+    </div>
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <h1 class="display-4 fw-normal">Check all tournaments</h1>
+        <p class="lead fw-normal">Check live, previous and next tournaments. </p>
+        <a class="btn btn-outline-secondary" href="list">Check Tournaments</a>
+    </div>
+    {% endif %}
+
     <div class="product-device shadow-sm d-none d-md-block"></div>
     <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-  </div>
+</div>
 
 {% endblock content %}

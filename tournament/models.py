@@ -1,14 +1,15 @@
 from datetime import datetime
 
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.conf import settings
 
 SIZE_CHOICES = (
-    (4,4),
-    (8,8),
-    (16,16),
-    (32,32),
-    (64,64),
+    (4, 4),
+    (8, 8),
+    (16, 16),
+    (32, 32),
+    (64, 64),
 )
 
 
@@ -26,22 +27,25 @@ class Tournament(models.Model):
 
 class Player(models.Model):
     tournament = models.ForeignKey(Tournament,
-        on_delete=models.CASCADE, null=False)
+                                   on_delete=models.CASCADE, null=False)
     player_name = models.CharField(max_length=200)
 
 
 class BracketPair(models.Model):
     player1 = models.ForeignKey(Player,
-        related_name='player_1',
-        on_delete=models.CASCADE, null=False)
+                                related_name='player_1',
+                                on_delete=models.CASCADE, null=True)
     player2 = models.ForeignKey(Player,
-        on_delete=models.CASCADE,
-        related_name='player_2',null=False)
+                                on_delete=models.CASCADE,
+                                related_name='player_2', null=True)
+    tournament = models.ForeignKey(Tournament, related_name='tournament', on_delete=models.CASCADE, null=False)
     pairNumber = models.IntegerField(null=False)
+    stage = models.IntegerField(null=False)
+    open = models.BooleanField(default=True)
 
 
 class Score(models.Model):
     pair = models.ForeignKey(BracketPair,
-        on_delete=models.CASCADE, null=False)
-    player1_score = models.IntegerField(null=False)
-    player2_score = models.IntegerField(null=False)
+                             on_delete=models.CASCADE, null=False)
+    player1_score = models.IntegerField(null=False,validators=[MinValueValidator(0)])
+    player2_score = models.IntegerField(null=False,validators=[MinValueValidator(0)])

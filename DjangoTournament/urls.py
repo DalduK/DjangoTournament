@@ -27,4 +27,8 @@ urlpatterns = [
     path('create/<int:id>/', tournament.views.confirm_tournament, name='confirm'),
     path('list/', tournament.views.list_all_tournaments, name='list'),
     path('userlist/', tournament.views.list_user_tournaments, name='userlist'),
+    path('bracket/<int:id>/', tournament.views.tournament_bracker, name='bracket'),
+    path('editbracket/<int:id>/', tournament.views.edit_tournament_bracker, name='editbracket'),
+    path('score/<int:id>/', tournament.views.pair_score, name='score'),
+    path('delete/<int:id>/', tournament.views.delete, name='delete'),
 ]

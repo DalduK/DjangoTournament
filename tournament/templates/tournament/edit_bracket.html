@@ -1,0 +1,76 @@
+{% extends "tournament/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+    {% for i in tournament %}
+    <h1>{{ i.name }}</h1>
+    {% now "Y-m-d" as todays_date %}
+    {% if todays_date >= i.closeDate|date:"Y-m-d" %}
+    <div class="col-md-5 p-lg-5 my-5">
+        <div class="d-flex flex-row">
+            {% for i in rest %}
+            <div class="p-2">
+                {% for l in i %}
+                {% if l.open %}
+                <a href="{%url 'score' l.id %}">
+                    <div class="card border-primary" style="width: 18rem;">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                            <p class="float-start">{{ l.player1.player_name }}</p>
+                            {% for s in score %}
+                            {% if s.pair.id == l.id %}
+                            <span class="badge bg-primary rounded-pill float-end">{{ s.player1_score }}</span>
+                            {% endif %}
+                            {% endfor %}
+                        </li>
+                        <li class="list-group-item">
+                            <p class="float-start">{{ l.player2.player_name }}</p>
+                            {% for s in score %}
+                            {% if s.pair.id == l.id %}
+                            <span class="badge bg-primary rounded-pill float-end">{{ s.player2_score }}</span>
+                            {% endif %}
+                            {% endfor %}
+                        </li>
+                        </ul>
+                    </div>
+                </a>
+                {% else %}
+                <div class="card" style="width: 18rem;">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <p class="float-start">{{ l.player1.player_name }}</p>
+                            {% for s in score %}
+                            {% if s.pair.id == l.id %}
+                            <span class="badge bg-primary rounded-pill float-end">{{ s.player1_score }}</span>
+                            {% endif %}
+                            {% endfor %}
+                        </li>
+                        <li class="list-group-item">
+                            <p class="float-start">{{ l.player2.player_name }}</p>
+                            {% for s in score %}
+                            {% if s.pair.id == l.id %}
+                            <span class="badge bg-primary rounded-pill float-end">{{ s.player2_score }}</span>
+                            {% endif %}
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+                 <br>
+                {% endfor %}
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <h1>tournament will start {{ i.closeDate|date:"Y-m-d" }}</h1>
+    {% endif %}
+    {% endfor %}
+    <div class="product-device shadow-sm d-none d-md-block"></div>
+    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+</div>
+
+{% endblock content %}

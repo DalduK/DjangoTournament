@@ -1,42 +1,38 @@
-
 {% extends "tournament/base.html" %}
 
 {% block content %}
 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-<div class="col-md-5 p-lg-5 mx-auto my-5">
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th>id</th>
-            <th>Created By</th>
-            <th>Name</th>
-            <th>Creation Date</th>
-            <th>Close Date</th>
-            <th>Size</th>
-            <th>Details</th>
-{#            <th></th>#}
-{#            <th></th>#}
-        </tr>
-    </thead>
-    <tbody>
-        {% for tournament in objects.all %}
-        <tr>
-            <td>{{tournament.id}}</td>
-            <td>{{tournament.createdBy}}</td>
-            <td>{{tournament.name}}</td>
-            <td>{{tournament.creatonDate}}</td>
-            <td>{{tournament.closeDate}}</td>
-            <td>{{tournament.size}}</td>
-            <td><a href="#" type="button" class="btn btn-outline-dark me-2">Details</a></td>
-{#            <td><a href="{%url 'position_update' pos.id%}">edit</a>#}
-{#            <td><a href="#" data-url="{%url 'position_delete' pos.id%}" data-toggle="modal" data-target="#exampleModal">delete</a>#}
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-</div>
-<div class="product-device shadow-sm d-none d-md-block"></div>
-<div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th>id</th>
+                <th>Created By</th>
+                <th>Name</th>
+                <th>Creation Date</th>
+                <th>Start Date</th>
+                <th>Size</th>
+                <th>Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for tournament in objects.all %}
+            <tr>
+                <td>{{tournament.id}}</td>
+                <td>{{tournament.createdBy}}</td>
+                <td>{{tournament.name}}</td>
+                <td>{{tournament.creatonDate}}</td>
+                <td>{{tournament.closeDate}}</td>
+                <td>{{tournament.size}}</td>
+                <td><a href="{%url 'bracket' tournament.id %}" type="button"
+                       class="btn btn-outline-dark me-2">Details</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="product-device shadow-sm d-none d-md-block"></div>
+    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
 </div>
 
 {% endblock content %}
