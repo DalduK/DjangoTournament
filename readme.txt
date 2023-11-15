@@ -1,16 +1,31 @@
-Utworzyłem całą funkcjonalnośc strony oprócz grup uprawnień, panelu Administratora i tego że super user może wszystko.
+# Django Tournament 🥇🥈🥉
 
-Do testów utworzyłem dwa konta:
-Login - przemek Hasło - Haslo1234
-Login - django Hasło - ProjektPython1
+Explore the features of this web application that include everything except permission groups, the Administrator's panel, and the extensive capabilities of a superuser.
 
-Oczywiście zachęcam do utworzenia nowego konta, ale również tworzenia i aktualizowania nowych lub już utworzonych turniejów.
+## Test Accounts
 
-Wszystkie biblioteki potrzebne do działania znajdują się w pliku requirements.txt.
+For testing purposes, two accounts have been set up:
+- Username: przemek, Password: Haslo1234
+- Username: django, Password: ProjektPython1
 
-Do frontendu aplikacji wykorzystałem Bootstrapa w wersji 5, korzystam z linków CDN,
-dlatego proszę o korzystanie z aplikacji będąc podłączonym do internetu.
+Feel free to use these accounts for testing or create new ones. Additionally, you are encouraged to create and update new or existing tournaments.
 
-W bazie danych db.sqlite3 znajduje się kilka rekordów, dlatego proszę o korzystanie z niej.
+## Requirements
 
-To wszystko, miłego sprawdzania :)
+All the necessary libraries for operation are listed in the `requirements.txt` file.
+
+## Frontend
+
+The application's frontend is built using Bootstrap version 5, with CDN links. Ensure that you are connected to the internet while using the application.
+
+## Database
+
+The database (`db.sqlite3`) contains several records for testing purposes.
+
+## Getting Started
+
+1. Clone the repository.
+2. Install the required libraries from `requirements.txt`.
+3. Explore the application and enjoy testing!
+
+That's it! Happy exploring! :)
